@@ -37,7 +37,138 @@
      This box is empty on purpose. In Part 7 you paste an interactive
      graphic BETWEEN the opening <div> and the closing </div> below.
      ===================================================================== -->
-<div class="showcase"></div>
+<div class="showcase"><!-- HTML: three flip cards, one for each food. Click or tap a card to flip it. -->
+<div class="showcase-wrap">
+  <div class="showcase-title">Tap a card for a fun fact!</div>
+  <div class="showcase-grid">
+    <button class="showcase-card" type="button" aria-pressed="false">
+      <span class="showcase-inner">
+        <span class="showcase-face showcase-front">
+          <span class="showcase-emoji">🐖</span>
+          <span class="showcase-name">Kalua Pork</span>
+        </span>
+        <span class="showcase-face showcase-back">
+          "Kalua" means cooking in an imu, an underground oven lined with hot rocks. A whole pig can cook in it for most of the day.
+        </span>
+      </span>
+    </button>
+    <button class="showcase-card" type="button" aria-pressed="false">
+      <span class="showcase-inner">
+        <span class="showcase-face showcase-front">
+          <span class="showcase-emoji">🍗</span>
+          <span class="showcase-name">Chicken Katsu</span>
+        </span>
+        <span class="showcase-face showcase-back">
+          "Katsu" is short for katsuretsu, the Japanese word for cutlet. The original version in Japan was made with pork.
+        </span>
+      </span>
+    </button>
+    <button class="showcase-card" type="button" aria-pressed="false">
+      <span class="showcase-inner">
+        <span class="showcase-face showcase-front">
+          <span class="showcase-emoji">🥩</span>
+          <span class="showcase-name">Kalbi</span>
+        </span>
+        <span class="showcase-face showcase-back">
+          Kalbi (galbi) means "rib" in Korean. Hawaii-style kalbi is cut thin across the bone so it grills fast.
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+
+<!-- CSS: card layout, brand colors (blue #0077B6, orange #F4A261), Verdana font, and the flip animation. Every rule starts with .showcase. -->
+<style>
+.showcase .showcase-wrap {
+  max-width: 640px;
+  margin: 30px auto;
+  font-family: Verdana, Geneva, sans-serif;
+  text-align: center;
+}
+.showcase .showcase-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0077B6;
+  margin-bottom: 14px;
+}
+.showcase .showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.showcase .showcase-card {
+  height: 220px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  perspective: 800px;
+  font-family: inherit;
+}
+.showcase .showcase-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.showcase .showcase-card.is-flipped .showcase-inner {
+  transform: rotateY(180deg);
+}
+.showcase .showcase-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 3px solid #F4A261;
+  border-radius: 12px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.showcase .showcase-front {
+  background-color: #0077B6;
+  color: #ffffff;
+}
+.showcase .showcase-back {
+  background-color: #F4A261;
+  color: #2b2b2b;
+  border-color: #0077B6;
+  transform: rotateY(180deg);
+  font-size: clamp(11px, 2.8vw, 15px);
+  line-height: 1.4;
+}
+.showcase .showcase-emoji {
+  font-size: clamp(32px, 8vw, 48px);
+  margin-bottom: 8px;
+}
+.showcase .showcase-name {
+  font-size: clamp(13px, 3.2vw, 18px);
+  font-weight: bold;
+}
+.showcase .showcase-card:focus-visible {
+  outline: 3px solid #F4A261;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+</style>
+
+<!-- JavaScript: flips a card when it's clicked or tapped, and flips it back on a second click. -->
+<script>
+(function () {
+  var cards = document.querySelectorAll(".showcase .showcase-card");
+  cards.forEach(function (card) {
+    card.addEventListener("click", function () {
+      var flipped = card.classList.toggle("is-flipped");
+      card.setAttribute("aria-pressed", flipped ? "true" : "false");
+    });
+  });
+})();
+</script></div>
 
 <!-- Footer: fill in your name -->
 <footer>Built by Matthew Parker &middot; BMIS 235</footer>
